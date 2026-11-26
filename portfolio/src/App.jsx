@@ -59,7 +59,7 @@ const SKILLS = [
 const PROJECTS = [
   {
     id: '01',
-    title: 'ProductHub — MERN CRUD App',
+    title: 'Quark Ai Assitant',
     category: 'MERN Full-Stack',
     accent: 'cyan',
     description:
@@ -75,8 +75,8 @@ const PROJECTS = [
   },
   {
     id: '02',
-    title: 'CampusCore — Student Portal',
-    category: 'Java & SQL',
+    title: 'portfolio',
+    category: 'react js',
     accent: 'amber',
     description:
       'Object-oriented Java application designed to manage student records, attendance, and grades with structured JDBC database connectivity.',
@@ -85,13 +85,13 @@ const PROJECTS = [
       'JDBC & MySQL CRUD operations',
       'Role-based access & validation',
     ],
-    stack: ['Java', 'OOP', 'JDBC', 'MySQL'],
+    stack: ['React js'],
     demoUrl: '#projects',
     codeUrl: PROFILE.github,
   },
   {
     id: '03',
-    title: 'PyPulse — API & Data Automator',
+    title: 'AI Assistant',
     category: 'Python Backend',
     accent: 'emerald',
     description:
@@ -101,7 +101,7 @@ const PROJECTS = [
       'Automated CSV/JSON processing',
       'Clean modular Python architecture',
     ],
-    stack: ['Python', 'FastAPI', 'REST', 'Automation'],
+    stack: ['Python', 'FastAPI', 'REST'],
     demoUrl: '#projects',
     codeUrl: PROFILE.github,
   },
