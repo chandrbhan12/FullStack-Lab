@@ -21,15 +21,20 @@ router.post("/register", async (req, res, next) => {
   } catch (error) { next(error); }
 });
 
-router.post("/login", async (req, res, next) => {
+async function authenticate(req, res, next, roles) {
   try {
     const { email, password } = req.body;
     if (typeof email !== "string" || typeof password !== "string") return res.status(400).json({ message: "Email and password are required" });
     const user = await User.findOne({ email: email.toLowerCase().trim() }).select("+password");
-    if (!user || !(await user.comparePassword(password))) return res.status(401).json({ message: "Email or password is incorrect" });
+    if (!user || !(await user.comparePassword(password)) || !roles.includes(user.role)) {
+      return res.status(401).json({ message: "Email or password is incorrect" });
+    }
     res.json({ token: tokenFor(user), user: publicUser(user) });
   } catch (error) { next(error); }
-});
+}
+
+router.post("/login", (req, res, next) => authenticate(req, res, next, ["customer"]));
+router.post("/seller-login", (req, res, next) => authenticate(req, res, next, ["seller", "admin"]));
 
 router.post("/forgot-password", async (req, res, next) => {
   try {

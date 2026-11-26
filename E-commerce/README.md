@@ -47,14 +47,23 @@ The backend listens on port `5000` by default. `CLIENT_URL` may contain a comma-
 
 ## Seller access
 
-New sign-ups are always customers; a public registration request cannot assign itself a privileged role. To grant seller access to a trusted account, register it first and update its role using the MongoDB shell:
+New sign-ups and customer sign-ins are restricted to the customer role; a public registration request cannot assign itself seller access. Sellers use the separate `/seller-login` page. To grant seller access to a trusted account, register it first and update its role using the MongoDB shell:
 
 ```javascript
 use shopease
-db.users.updateOne({ email: "seller@example.com" }, { $set: { role: "admin" } })
+db.users.updateOne({ email: "seller@example.com" }, { $set: { role: "seller" } })
 ```
 
-Sign out and sign in again after changing the role. The same dashboard is available to `seller` and `admin` roles.
+Sign out and use Seller sign in after changing the role. The seller dashboard and product management APIs enforce the seller/admin role on the server.
+
+For local testing, `npm run seed` creates this demo seller account when `NODE_ENV` is not `production` (existing account passwords are not overwritten):
+
+| Login | Value |
+| --- | --- |
+| Seller ID | `seller@shopease.test` |
+| Password | `ShopEaseSeller123!` |
+
+This shared demo credential is for local testing only. The seed script skips it in production; create real seller accounts and assign their role through a trusted administrative process.
 
 ## Optional integrations
 
@@ -86,5 +95,5 @@ backend/                  Express REST API
 
 - `backend/.env.example` and `frontend/.env.example` list the environment variables each app uses. Never commit `.env` files.
 - Product images can be supplied as HTTPS URLs or uploaded in the seller dashboard. Local uploads are stored on the API server; use persistent storage or an object-storage service when deploying to ephemeral hosts.
-- The storefront can still browse and search eight local sample products while the API is offline. Sign-in, cart persistence, checkout, and live inventory require the Express API and MongoDB to be configured and running.
+- The storefront can still browse and search eight local sample products while the API is offline. These previews cannot be added to the cart or purchased; sign-in, cart persistence, checkout, and live inventory require the Express API and MongoDB to be configured and running.
 - Use HTTPS, a production JWT secret, and production-grade MongoDB/SMTP/Razorpay settings when deploying.

@@ -43,10 +43,11 @@ export function Footer() {
   </footer>;
 }
 
-export function ProductCard({ product, onAdd }) {
+export function ProductCard({ product, onAdd, disablePurchase = false }) {
   const { addToCart } = useStore();
   const [adding, setAdding] = useState(false);
   const add = async () => {
+    if (disablePurchase) return;
     setAdding(true);
     try { await (onAdd ? onAdd() : addToCart(product._id)); }
     finally { setAdding(false); }
@@ -62,12 +63,12 @@ export function ProductCard({ product, onAdd }) {
       />
     </Link>
     <div className="product-info"><div><span className="product-category">{product.category}</span><Link to={`/products/${product._id}`}><h3>{product.name}</h3></Link></div><strong>₹{Number(product.price).toLocaleString("en-IN")}</strong></div>
-    <div className="product-meta"><span>★ {Number(product.rating || 4.8).toFixed(1)} <small>({product.reviewCount || 0})</small></span><button onClick={add} disabled={adding}>{adding ? "Adding..." : "Add to bag"} {!adding && <ArrowUpRight size={14} />}</button></div>
+    <div className="product-meta"><span>★ {Number(product.rating || 4.8).toFixed(1)} <small>({product.reviewCount || 0})</small></span><button onClick={add} disabled={disablePurchase || adding}>{disablePurchase ? "Preview only" : adding ? "Adding..." : "Add to bag"} {!disablePurchase && !adding && <ArrowUpRight size={14} />}</button></div>
   </article>;
 }
 
-export function ProductGrid({ products, loading }) {
+export function ProductGrid({ products, loading, disablePurchase = false }) {
   if (loading) return <div className="loading-grid">{[1, 2, 3, 4].map((n) => <div className="skeleton" key={n} />)}</div>;
   if (!products?.length) return <div className="empty-state"><span>⌕</span><h3>Nothing here just yet</h3><p>Try another search or explore all our finds.</p><Link className="button button-dark" to="/products">Explore everything</Link></div>;
-  return <div className="product-grid">{products.map((product) => <ProductCard key={product._id} product={product} />)}</div>;
+  return <div className="product-grid">{products.map((product) => <ProductCard key={product._id} product={product} disablePurchase={disablePurchase} />)}</div>;
 }

@@ -24,14 +24,16 @@ export function StoreProvider({ children }) {
 
   useEffect(() => { refreshCart(); }, [refreshCart]);
 
-  const login = async (credentials) => {
-    const { data } = await api.post("/auth/login", credentials);
+  const loginWith = async (endpoint, credentials) => {
+    const { data } = await api.post(endpoint, credentials);
     localStorage.setItem("shopease_token", data.token);
     localStorage.setItem("shopease_user", JSON.stringify(data.user));
     setUser(data.user);
     await refreshCart();
     return data.user;
   };
+  const login = (credentials) => loginWith("/auth/login", credentials);
+  const sellerLogin = (credentials) => loginWith("/auth/seller-login", credentials);
   const register = async (details) => {
     const { data } = await api.post("/auth/register", details);
     localStorage.setItem("shopease_token", data.token);
@@ -78,7 +80,7 @@ export function StoreProvider({ children }) {
   };
 
   const value = useMemo(() => ({
-    user, cart, cartBusy, login, register, logout, setUserData, refreshCart, addToCart, updateQuantity, removeFromCart,
+    user, cart, cartBusy, login, sellerLogin, register, logout, setUserData, refreshCart, addToCart, updateQuantity, removeFromCart,
     cartCount: cart.reduce((sum, item) => sum + item.quantity, 0),
     subtotal: cart.reduce((sum, item) => sum + (item.product?.price || 0) * item.quantity, 0),
   }), [user, cart, cartBusy]);

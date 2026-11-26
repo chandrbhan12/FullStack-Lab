@@ -24,6 +24,7 @@ export default function Login() {
       <div className="forgot-row"><span>At least 8 characters</span><Link to="/forgot-password">Forgot password?</Link></div>
       <button className="button button-dark auth-submit" disabled={busy}>{busy ? "One moment..." : "Sign in"} <ArrowUpRight size={17} /></button>
     </form><p className="auth-switch">New around here? <Link to="/signup">Create an account</Link></p>
+    <p className="auth-switch">Selling with us? <Link to="/seller-login">Seller sign in</Link></p>
   </AuthFrame>;
 }
 

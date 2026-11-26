@@ -71,7 +71,7 @@ export default function Home() {
     <section className="section-block featured-section" data-reveal>
       <div className="section-heading"><div><span className="eyebrow">Good things, picked for you</span><h2>Worth a closer <em>look.</em></h2></div><Link className="text-link" to="/products">Shop all finds <ArrowRight size={16} /></Link></div>
       {sampleMode && <p className="sample-notice">You’re browsing the sample collection. Connect the API for live products and checkout.</p>}
-      <ProductGrid products={products} loading={loading} />
+      <ProductGrid products={products} loading={loading} disablePurchase={sampleMode} />
     </section>
     <section className="promo-band" data-reveal><div className="promo-copy"><span className="eyebrow light">A little treat from us</span><h2>Make everyday<br />a little more <em>you.</em></h2><p>Discover considered essentials that feel like they’ve always belonged.</p><Link className="button button-light" to="/products">Find your favorite <ArrowUpRight size={17} /></Link></div><img loading="lazy" src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1000&q=85" alt="A calm, sunlit living space" /></section>
     <section className="quote-strip" data-reveal><span>“</span><p>The best things aren’t just useful. They make you feel good about the everyday.</p><span className="eyebrow">THE SHopease WAY</span></section>

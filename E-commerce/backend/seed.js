@@ -2,6 +2,13 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import { connectDatabase } from "./config/db.js";
 import Product from "./models/Product.js";
+import User from "./models/User.js";
+
+const demoSeller = {
+  name: "ShopEase Demo Seller",
+  email: "seller@shopease.test",
+  password: "ShopEaseSeller123!",
+};
 
 const products = [
   {
@@ -52,6 +59,19 @@ try {
     await Product.updateOne({ name: product.name }, { $setOnInsert: product }, { upsert: true, runValidators: true });
   }
   console.log(`Seeded ${products.length} sample ShopEase products (existing products were preserved).`);
+  if (process.env.NODE_ENV === "production") {
+    console.log("Skipped demo seller account in production.");
+  } else {
+    const existingSeller = await User.findOne({ email: demoSeller.email });
+    if (!existingSeller) {
+      await User.create({ ...demoSeller, role: "seller" });
+      console.log(`Created demo seller account: ${demoSeller.email}`);
+    } else if (existingSeller.role === "seller") {
+      console.log(`Demo seller account already exists: ${demoSeller.email}`);
+    } else {
+      throw new Error(`Cannot seed demo seller: ${demoSeller.email} is already registered as a non-seller account`);
+    }
+  }
 } catch (error) {
   console.error("Could not seed sample products:", error);
   process.exitCode = 1;
