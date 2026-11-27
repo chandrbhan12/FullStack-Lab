@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const PROFILE = {
   name: 'Chandrbhan Kumar',
-  brand: 'Chandrbhan.dev',
+  brand: 'MyPortfolio',
   email: 'your.email@example.com',
   github: 'https://github.com/chandrbhan12',
   linkedin: 'https://www.linkedin.com/in/chandrbhan-kumar-a85195376/',
@@ -10,8 +10,8 @@ const PROFILE = {
 
 const TYPING_ROLES = [
   'MERN Full-Stack Developer',
-  'Java Backend Developer',
-  'Python Programmer',
+  'Java Core Programming',
+  'Python Programming',
   'BCA Graduate (UG)',
 ];
 
@@ -33,8 +33,8 @@ const SKILLS = [
     accent: 'amber',
     title: 'Java Development',
     level: '85%',
-    summary: 'Object-oriented programming, clean architecture, and relational database integration.',
-    tags: ['Core Java', 'OOPs', 'Collections', 'JDBC', 'Exception Handling', 'MySQL'],
+    summary: 'Object-oriented programming',
+    tags: ['Core Java', 'OOPs', 'Exception Handling'],
   },
   {
     category: 'Python',
@@ -42,8 +42,8 @@ const SKILLS = [
     accent: 'emerald',
     title: 'Python Programming',
     level: '85%',
-    summary: 'Backend scripting, API development, data structures, and workflow automation.',
-    tags: ['Python 3', 'Flask / FastAPI', 'Data Structures', 'Automation', 'REST APIs'],
+    summary: 'Backend scripting, API development',
+    tags: ['Python ', 'Flask / FastAPI', 'REST APIs'],
   },
   {
     category: 'Tools',
@@ -52,7 +52,7 @@ const SKILLS = [
     title: 'Frontend & Dev Tools',
     level: '88%',
     summary: 'Modern responsive styling, API testing, and collaborative version control.',
-    tags: ['JavaScript ES6+', 'HTML5 & CSS3', 'Git & GitHub', 'Postman', 'VS Code'],
+    tags: ['JavaScript ', 'HTML5 & CSS3', 'Git & GitHub', 'Postman', 'VS Code'],
   },
 ];
 
@@ -581,7 +581,7 @@ function App() {
             <span>{PROFILE.brand}</span>
           </a>
           <p>
-            © {new Date().getFullYear()} {PROFILE.name} · BCA Graduate · MERN · Java · Python
+            © {new Date().getFullYear()} {PROFILE.name} Crafted with ❤️ | Portfolio
           </p>
           <div className="footer-links">
             <a href={PROFILE.github} target="_blank" rel="noreferrer">GitHub</a>
